@@ -5,7 +5,7 @@ let defaultState = ""
 
 function displayReducer(state = defaultState, action){
   switch(action.type){
-    case actions.one:
+    case actions.APPEND_PRESSED:
       return state + 1
     default:
       return defaultState

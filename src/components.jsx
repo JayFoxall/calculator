@@ -1,20 +1,39 @@
 import { React } from "react";
-import * as actions from './Store/actions'
+import { RenderKeypad } from "./Logic/RenderKeypad";
 
-export function Keypad(){
-
-let buttons =[]
-
-function button(id, action, )
-
+export function Display(){
     return (
-        buttons
-            .map(button => <Button details={button}/>)
+        <>
+            Display Goes Here
+        </>
     )
 }
 
-export function Button(props){
-    return (
-       <>{props.details}</>
-    )
+export function Keypad() {
+  return RenderKeypad(
+    { character: "0", id: "zero" },
+    { character: "1", id: "one" },
+    { character: "2", id: "Two" },
+    { character: "3", id: "three" },
+    { character: "4", id: "four" },
+    { character: "5", id: "five" },
+    { character: "6", id: "six" },
+    { character: "7", id: "seven" },
+    { character: "8", id: "eight" },
+    { character: "9", id: "nine" },
+    { character: ".", id: "decimal" },
+    { character: "AC", id: "clear" },
+    { character: "+", id: "add" },
+    { character: "-", id: "subtract" },
+    { character: "=", id: "divide" },
+    { character: "*", id: "multiply" }
+  )
+}
+
+export function Button(props) {
+  return (
+    <div id={props.button.id}>
+      <button>{props.button.character}</button>
+    </div>
+  );
 }
