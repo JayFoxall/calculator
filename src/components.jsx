@@ -1,12 +1,21 @@
 import { React } from "react";
-import { RenderKeypad } from "./Logic/RenderKeypad";
+import { connect } from "react-redux";
+import { RenderKeypad } from "./Functions/RenderKeypad";
+import { store } from './Store/store';
 
-export function Display(){
+export const Display =  connect(mapStateToProps)(props =>
+  {  
     return (
         <>
-            Display Goes Here
+            {props.state}
         </>
     )
+})
+
+function mapStateToProps(state) {
+  return {
+    state: state,
+  };
 }
 
 export function Keypad() {
@@ -32,7 +41,7 @@ export function Keypad() {
 
 export function Button(props) {
   return (
-    <div id={props.button.id}>
+    <div id={props.button.id} onClick = {() => store.dispatch({type: props.button.actionAssignment, payload: props.button.character})}>
       <button>{props.button.character}</button>
     </div>
   );

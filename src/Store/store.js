@@ -1,19 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit';
-import * as actions from './actions'
+import { configureStore } from "@reduxjs/toolkit";
+import * as actions from "./actions";
+import { CalculateAnswer } from "../Functions/CalculateAnswer";
 
-let defaultState = ""
+const defaultState = "0";
 
-function displayReducer(state = defaultState, action){
-  switch(action.type){
+function displayReducer(state, action) {
+  switch (action.type) {
     case actions.APPEND_PRESSED:
-      return state + 1
+    case actions.OPERATOR_PRESSED:
+      if (state === "0") {
+        return action.payload;
+      } else {
+        return [...state, action.payload];
+      }
+    case actions.CLEAR_PRESSED:
+      return defaultState;
+    case actions.EQUALS_PRESSED:
+      return CalculateAnswer(state);
+
     default:
-      return defaultState
+      return defaultState;
   }
 }
 
-export const store = configureStore({
-  reducer: {
-    counter: {displayReducer},
-  },
-});
+export const store = configureStore({ reducer: displayReducer });
