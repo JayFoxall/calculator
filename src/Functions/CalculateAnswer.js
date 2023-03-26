@@ -1,5 +1,5 @@
 export function CalculateAnswer(state) {
-    
-  let numbers = state.match(/[d+\.?d+?]/);
+    let displayedString = state.toString()
+  let numbers = displayedString.match(/[d+]/g);
   console.log(numbers);
 }
