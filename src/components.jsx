@@ -34,8 +34,9 @@ export function Keypad() {
     { character: "AC", id: "clear" },
     { character: "+", id: "add" },
     { character: "-", id: "subtract" },
-    { character: "=", id: "divide" },
-    { character: "*", id: "multiply" }
+    { character: "=", id: "equals" },
+    { character: "*", id: "multiply" },
+    { character: "/", id: "divide" }
   )
 }
 

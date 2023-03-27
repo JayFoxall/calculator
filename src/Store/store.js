@@ -7,16 +7,21 @@ const defaultState = "0";
 function displayReducer(state, action) {
   switch (action.type) {
     case actions.APPEND_PRESSED:
+    case actions.DECIMAL_PRESSED:
     case actions.OPERATOR_PRESSED:
       if (state === "0") {
         return action.payload;
       } else {
-        return [...state, action.payload];
+        try{
+          return [...state, action.payload];
+        }catch{
+          return [state]
+        }
       }
     case actions.CLEAR_PRESSED:
       return defaultState;
     case actions.EQUALS_PRESSED:
-      return CalculateAnswer(state);
+      return [CalculateAnswer(state)];
 
     default:
       return defaultState;

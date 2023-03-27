@@ -2,16 +2,15 @@ import * as actions from "../Store/actions";
 import React from "react";
 import { Button } from "../components.jsx";
 
+export let appendableKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+export let clearKey = "AC";
+export let operatorKeys = ["+", "-", "*", "/"];
+export let equalsKey = "=";
+
 export function RenderKeypad(...keysOnKeypad) {
   let buttonsOnKeypad = [];
-
+  
   let requiredKeys = [...keysOnKeypad];
-  console.log(requiredKeys)
-
-  let appendableKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
-  let clearKey = "AC";
-  let operatorKeys = ["+", "-", "*"];
-  let equalsKey = "=";
 
   function createButton(__character, __actionAssignment, __id = "") {
     this.character = __character;

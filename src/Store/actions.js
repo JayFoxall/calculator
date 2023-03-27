@@ -1,6 +1,5 @@
 export const APPEND_PRESSED = "Append Pressed";
 export function AppendAction(__key) {
-debugger
   return {
     type: APPEND_PRESSED,
     payload: __key,
@@ -32,4 +31,13 @@ export function ClearAction(__key) {
     type: CLEAR_PRESSED,
     payload: __key,
   };
+}
+
+export const DECIMAL_PRESSED = "Decimal Pressed"
+export function DecimalAction(__key){
+
+  return{
+    type: DECIMAL_PRESSED,
+    payload: __key,
+  }
 }
