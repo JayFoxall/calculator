@@ -11,7 +11,7 @@ export function CalculateAnswer(state) {
 
   if (typeof state[0] === "number") firstOperand = state[0]
 
-  state.forEach((character, index) => {
+  state.forEach((character, index, equation) => {
     if (keypad.appendableKeys.includes(character)||character===keypad.decimalKey){
       if (operator === ""){
         firstOperand += character
@@ -21,11 +21,12 @@ export function CalculateAnswer(state) {
     }
 
     if (keypad.operatorKeys.includes(character)){
-        operator = character
-      if (secondOperand !== ""){
-        firstOperand = calculate(firstOperand, operator, secondOperand)
-        operator = ""
+        if (secondOperand !== ""){
+          firstOperand = calculate(firstOperand, operator, secondOperand)
+          operator = ""
+          secondOperand = ""
       }
+      operator = character
     }
   })
 

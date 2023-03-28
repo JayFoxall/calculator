@@ -1,4 +1,4 @@
-import { store } from './store';
+import { store } from "./store";
 
 export const APPEND_PRESSED = "Append Pressed";
 export function AppendAction(__key) {
@@ -10,7 +10,6 @@ export function AppendAction(__key) {
 
 export const EQUALS_PRESSED = "Equals Pressed";
 export function EqualsAction(__key) {
-
   return {
     type: EQUALS_PRESSED,
     payload: __key,
@@ -18,52 +17,68 @@ export function EqualsAction(__key) {
 }
 
 export const OPERATOR_PRESSED = "Operator Pressed";
+export const OPERATOR_DUPLICATED = "Operator Duplicated";
+export const MINUS_PRESSED = "Minus Pressed";
 export function OperatorAction(__key) {
-  return {
-    type: OPERATOR_PRESSED,
-    payload: __key,
-  };
+  let testState = store.getState();
+  try {testState = testState.join("")
+   } catch (testState){
+
+   }
+  testState += __key;
+
+  if (__key === "-") {
+    if (testState.match(/-{3,}|[+*/]{1,}-{2,}|-[*/+]/g)) {
+      return {
+        type: OPERATOR_DUPLICATED,
+        payload: __key
+      };
+    } else
+      return {
+        type: MINUS_PRESSED,
+        payload: __key
+      };
+  } else if (testState.match(/-[+*/]|[+*/]{2,}/)) {
+    return {
+      type: OPERATOR_DUPLICATED,
+      payload: __key,
+    };
+  } else
+    return {
+      type: OPERATOR_PRESSED,
+      payload: __key,
+    };
 }
 
 export const CLEAR_PRESSED = "Clear Pressed";
 export function ClearAction(__key) {
-
   return {
     type: CLEAR_PRESSED,
     payload: __key,
   };
 }
 
-export const DECIMAL_PRESSED = "Decimal Pressed"
-export function DecimalAction(__key){
+export const DECIMAL_PRESSED = "Decimal Pressed";
+export function DecimalAction(__key) {
+  let testState = store.getState();
 
-
-  let state = store.getState()
-
-
-  let stateLength = state.length
-
-  if (state.length > 1 ){
-    state = state.join("").toString()
+  if (testState.length > 1) {
+    testState = testState.join("").toString();
   } else {
-    state = state.toString()
+    testState = testState.toString();
   }
 
-  let regex = /\.\.|[0-9]+\.(?:[0-9]+\.)+/g
+  let regex = /\.\.|[0-9]+\.(?:[0-9]+\.)+/g;
+  testState += ".";
 
-  console.log(state)
-  console.log(state.match(regex))
-  state += "."
-  if (state.match(regex)){
-    return{
+  if (testState.match(regex)) {
+    return {
       type: DECIMAL_PRESSED,
-      
-    }
+    };
   }
 
-  return{
+  return {
     type: DECIMAL_PRESSED,
     payload: __key,
-  }
+  };
 }
-
