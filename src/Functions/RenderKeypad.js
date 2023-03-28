@@ -2,10 +2,11 @@ import * as actions from "../Store/actions";
 import React from "react";
 import { Button } from "../components.jsx";
 
-export let appendableKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+export let appendableKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 export let clearKey = "AC";
 export let operatorKeys = ["+", "-", "*", "/"];
 export let equalsKey = "=";
+export let decimalKey = ".";
 
 export function RenderKeypad(...keysOnKeypad) {
   let buttonsOnKeypad = [];
@@ -35,6 +36,9 @@ export function RenderKeypad(...keysOnKeypad) {
         break;
       case clearKey === keyCharacter:
         action = actions.CLEAR_PRESSED;
+        break;
+      case decimalKey === keyCharacter:
+        action = actions.DECIMAL_PRESSED;
         break;
       default:
         break;

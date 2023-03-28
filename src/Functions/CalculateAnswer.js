@@ -12,7 +12,7 @@ export function CalculateAnswer(state) {
   if (typeof state[0] === "number") firstOperand = state[0]
 
   state.forEach((character, index) => {
-    if (keypad.appendableKeys.includes(character)){
+    if (keypad.appendableKeys.includes(character)||character===keypad.decimalKey){
       if (operator === ""){
         firstOperand += character
       } else {

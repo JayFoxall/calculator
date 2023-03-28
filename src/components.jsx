@@ -1,16 +1,12 @@
 import { React } from "react";
 import { connect } from "react-redux";
 import { RenderKeypad } from "./Functions/RenderKeypad";
-import { store } from './Store/store';
+import { store } from "./Store/store";
+import * as actions from "./Store/actions";
 
-export const Display =  connect(mapStateToProps)(props =>
-  {  
-    return (
-        <>
-            {props.state}
-        </>
-    )
-})
+export const Display = connect(mapStateToProps)((props) => {
+  return <>{props.state}</>;
+});
 
 function mapStateToProps(state) {
   return {
@@ -37,12 +33,32 @@ export function Keypad() {
     { character: "=", id: "equals" },
     { character: "*", id: "multiply" },
     { character: "/", id: "divide" }
-  )
+  );
 }
 
 export function Button(props) {
+  function ClickHandler() {
+
+    let character = props.button.character
+
+    switch (props.button.actionAssignment) {
+      case actions.APPEND_PRESSED:
+        return store.dispatch(actions.AppendAction(character));
+      case actions.CLEAR_PRESSED:
+        return store.dispatch(actions.ClearAction(character));
+      case actions.DECIMAL_PRESSED:
+        return store.dispatch(actions.DecimalAction(character));
+      case actions.OPERATOR_PRESSED:
+        return store.dispatch(actions.OperatorAction(character));
+      case actions.EQUALS_PRESSED:
+        return store.dispatch(actions.EqualsAction(character));
+      default:
+        return;
+    }
+  }
+
   return (
-    <div id={props.button.id} onClick = {() => store.dispatch({type: props.button.actionAssignment, payload: props.button.character})}>
+    <div id={props.button.id} onClick={ClickHandler}>
       <button>{props.button.character}</button>
     </div>
   );
