@@ -21,16 +21,19 @@ export const OPERATOR_DUPLICATED = "Operator Duplicated";
 export const MINUS_PRESSED = "Minus Pressed";
 export function OperatorAction(__key) {
   let testState = store.getState();
-  
+
   //TODO: Make if (typeof testState = "array") testState.join("")
-  
+
   try {
     testState = testState.join("");
   } catch (testState) {}
   testState += __key;
 
+  const minusOperatorDuplicated = /-{3,}|[+*/]{1,}-{2,}|-[*/+]/g
+  const operatorDuplicated = /-[+*/]|[+*/]{2,}/
+
   if (__key === "-") {
-    if (testState.match(/-{3,}|[+*/]{1,}-{2,}|-[*/+]/g)) {
+    if (testState.match(minusOperatorDuplicated)) {
       return {
         type: OPERATOR_DUPLICATED,
         payload: __key,
@@ -40,7 +43,7 @@ export function OperatorAction(__key) {
         type: MINUS_PRESSED,
         payload: __key,
       };
-  } else if (testState.match(/-[+*/]|[+*/]{2,}/)) {
+  } else if (testState.match(operatorDuplicated)) {
     return {
       type: OPERATOR_DUPLICATED,
       payload: __key,

@@ -25,10 +25,13 @@ function equationReducer(state, action) {
 
       if (newStateLastCharacter === action.payload){
         return state
+      } else if (newState[newState.length-1] === newState[newState.length-2]) {
+        return newState.slice(0,newState[newState.length-1]) 
       } else {
         newState[newState.length-1] = action.payload
         return newState
       }
+
     case actions.CLEAR_PRESSED:
       return defaultState;
     case actions.EQUALS_PRESSED:
