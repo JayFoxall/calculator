@@ -5,7 +5,7 @@ import { store } from "./Store/store";
 import * as actions from "./Store/actions";
 
 export const Display = connect(mapStateToProps)((props) => {
-  return <>{props.state}</>;
+  return <div id="display">{props.state}</div>;
 });
 
 function mapStateToProps(state) {
@@ -18,7 +18,7 @@ export function Keypad() {
   return RenderKeypad(
     { character: "0", id: "zero" },
     { character: "1", id: "one" },
-    { character: "2", id: "Two" },
+    { character: "2", id: "two" },
     { character: "3", id: "three" },
     { character: "4", id: "four" },
     { character: "5", id: "five" },

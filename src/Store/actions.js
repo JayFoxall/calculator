@@ -19,6 +19,8 @@ export function EqualsAction(__key) {
 export const OPERATOR_PRESSED = "Operator Pressed";
 export const OPERATOR_DUPLICATED = "Operator Duplicated";
 export const MINUS_PRESSED = "Minus Pressed";
+export const MINUS_TO_DUPLICATION =
+  "Minus After Operator Changed To Duplicate ";
 export function OperatorAction(__key) {
   let testState = store.getState();
 
@@ -29,8 +31,8 @@ export function OperatorAction(__key) {
   } catch (testState) {}
   testState += __key;
 
-  const minusOperatorDuplicated = /-{3,}|[+*/]{1,}-{2,}|-[*/+]/g
-  const operatorDuplicated = /-[+*/]|[+*/]{2,}/
+  const minusOperatorDuplicated = /-{3,}|[+*/]{1,}-{2,}|-[*/+]/g;
+  const operatorDuplicated = /-[+*/]|[+*/]{2,}/;
 
   if (__key === "-") {
     if (testState.match(minusOperatorDuplicated)) {
@@ -43,6 +45,11 @@ export function OperatorAction(__key) {
         type: MINUS_PRESSED,
         payload: __key,
       };
+  } else if (testState.match(/[*/+]-[*/+]/)) {
+    return {
+      type: MINUS_TO_DUPLICATION,
+      payload: __key,
+    };
   } else if (testState.match(operatorDuplicated)) {
     return {
       type: OPERATOR_DUPLICATED,
@@ -68,12 +75,13 @@ export function DecimalAction(__key) {
   let testState = store.getState();
 
   if (testState.length > 1) {
-    testState = testState.join("").toString();
+    try{testState = testState.join("").toString();}
+    catch(testState){testState.toString()}
   } else {
     testState = testState.toString();
   }
 
-  let regex = /\.\.|[0-9]+\.(?:[0-9]+\.)+/g;
+let regex = /\.\.|[0-9]+\.(?:[0-9]+\.)+|[+*/]\./g;
   testState += ".";
 
   if (testState.match(regex)) {

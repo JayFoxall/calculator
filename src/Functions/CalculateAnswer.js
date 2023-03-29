@@ -1,40 +1,44 @@
-import * as keypad from "../Functions/RenderKeypad"
+import * as keypad from "../Functions/RenderKeypad";
 
 export function CalculateAnswer(state) {
-  //let displayedString = state.toString()
-  //let numbers = displayedString.match(/\d+/g);
+  let firstOperand = "";
+  let secondOperand = "";
+  let operator = "";
 
-
-  let firstOperand = ""
-  let secondOperand = ""
-  let operator = ""
-
-  if (typeof state[0] === "number") firstOperand = state[0]
+  if (typeof state[0] === "number") firstOperand = state[0];
 
   state.forEach((character, index, equation) => {
-    if (keypad.appendableKeys.includes(character)||character===keypad.decimalKey){
-      if (operator === ""){
-        firstOperand += character
+    if (
+      keypad.appendableKeys.includes(character) ||
+      character === keypad.decimalKey
+    ) {
+      if (operator === "") {
+        firstOperand += character;
       } else {
-        secondOperand += character
+        secondOperand += character;
       }
     }
 
-    if (keypad.operatorKeys.includes(character)){
-        if (secondOperand !== ""){
-          firstOperand = calculate(firstOperand, operator, secondOperand)
-          operator = ""
-          secondOperand = ""
+    if (keypad.operatorKeys.includes(character)) {
+      if (character === "-" && firstOperand === "") {
+        firstOperand += character;
+        return;
+      } else if (character === "-" && operator !== "" && secondOperand === "") {
+        secondOperand += character;
+        return;
+      } else if (secondOperand !== "") {
+        firstOperand = calculate(firstOperand, operator, secondOperand);
+        operator = "";
+        secondOperand = "";
       }
-      operator = character
+      operator = character;
     }
-  })
+  });
 
-
-  function calculate(firstNum, op, secondNum){
-    firstNum = parseFloat(firstNum)
-    secondNum = parseFloat(secondNum)
-    switch (op){
+  function calculate(firstNum, op, secondNum) {
+    firstNum = parseFloat(firstNum);
+    secondNum = parseFloat(secondNum);
+    switch (op) {
       case "+":
         return firstNum + secondNum;
       case "-":
@@ -48,8 +52,7 @@ export function CalculateAnswer(state) {
     }
   }
 
-  let answer = calculate(firstOperand, operator, secondOperand)
+  let answer = calculate(firstOperand, operator, secondOperand);
 
-  return answer
-
+  return answer;
 }

@@ -20,17 +20,25 @@ function equationReducer(state, action) {
         }
       }
     case actions.OPERATOR_DUPLICATED:
-      let newState = [...state]
-      let newStateLastCharacter = newState[newState.length-1]
+      let newState = [...state];
+      let newStateLastCharacter = newState[newState.length - 1];
 
-      if (newStateLastCharacter === action.payload){
-        return state
-      } else if (newState[newState.length-1] === newState[newState.length-2]) {
-        return newState.slice(0,newState[newState.length-1]) 
+      if (newStateLastCharacter === action.payload) {
+        return state;
+      } else if (
+        newState[newState.length - 1] === newState[newState.length - 2]
+      ) {
+        return newState.slice(0, newState[newState.length - 1]);
       } else {
-        newState[newState.length-1] = action.payload
-        return newState
+        newState[newState.length - 1] = action.payload;
+        return newState;
       }
+
+    case actions.MINUS_TO_DUPLICATION:
+      let testState = state.join("");
+      testState = testState.slice(0, state.length - 2);
+      testState += action.payload;
+      return testState;
 
     case actions.CLEAR_PRESSED:
       return defaultState;
