@@ -37,8 +37,8 @@ export function Keypad() {
 }
 
 export function Button(props) {
+  
   function ClickHandler() {
-
     let character = props.button.character
 
     switch (props.button.actionAssignment) {
